@@ -71,5 +71,7 @@ if __name__ == '__main__':
     new_grammar = remove_unreachable_symbols(new_grammar)
     print('\nНовая грамматика без недостижимых символов:')
     print(new_grammar)
-    #Example:
+    #Examples:
     # A->Aa|b
+    #A->AA|b
+    #A->Aa|b|c
