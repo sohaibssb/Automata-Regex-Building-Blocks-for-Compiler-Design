@@ -199,4 +199,7 @@ if(len(sys.argv) == 3):
 else:
     print("Usage: python3 MinimizeDFA.py <inputfile> <outputfile>")
 
+    #python3 MinimizeDFA.py outputDFA.json outputDFAM.json 
+
+
 
