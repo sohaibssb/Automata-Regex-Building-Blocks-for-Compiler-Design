@@ -58,14 +58,13 @@ class nfa_to_dfa:
 
 
     def main_matrix(self,transition):
-        #write separately for empty
+
         trans_matrix=[]
         for state in self.allstates:            
             for alph in self.letters:
                 dest_arr=[]
-                found=0        #if alphabet not found put phi
+                found=0        
                 for st in state:
-                    #check through tranisition matrix and append states ,if nothing is found append to phi
                     for tran in transition:
                         if tran[0]==st and tran[1]==alph and st!="" and check1(dest_arr,tran[2]):
                             dest_arr.append(tran[2])

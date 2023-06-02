@@ -18,7 +18,7 @@ def trans(state,alph,transition):
 
 def update(states,transition,start_states):
     #print(transition)
-    #no incoming arrows , do it for unreachable states, 
+
     states_set=set()
     states_set=states_set.union(states)
     #states_set = states_set.union([tuple(state) for state in states])
@@ -66,7 +66,6 @@ class minimize_dfa:
         self.minimize(states,letters,transition,start_states,final_states)
 
     def minimize(self,states,letters,transition,start_states,final_states):
-        #remove all with incoming zeros
         #print(states)
         states=update(states,transition,start_states) 
         #print(states)
@@ -78,7 +77,6 @@ class minimize_dfa:
         pnow=p0
         iter=0
         state_matrix=[[0 for i in range(len(states))]for j in range(len(states))]
-        #initial step 
         for i1 in states:
             for i2 in states:
                 if (i1 not in final_states and i2 in final_states) or (i2 not in final_states and i1 in final_states):
@@ -100,13 +98,12 @@ class minimize_dfa:
                         dest1=trans(i1,le,transition)
                         dest2=trans(i2,le,transition)
                         if state_matrix[has.index(dest1)][has.index(dest2)]==1:
-                            if state_matrix[has.index(i1)][has.index(i2)]==0: #this says it changed at this step
+                            if state_matrix[has.index(i1)][has.index(i2)]==0: 
                                 updates=1
                                 #print("updated",i1, has.index(i1),i2,has.index(i2))
                             state_matrix[has.index(i1)][has.index(i2)]=1
                             #state_matrix[has.index(i2)][has.index(i1)]=1
-                            
-            #print(state_matrix)                    
+                                             
         new_states=[]
         for each in state_matrix:
             arr1=[]
@@ -120,7 +117,6 @@ class minimize_dfa:
         self.make_min_dfa(new_states,letters,transition,start_states,final_states)
 
     def make_min_dfa(self,states,letters,transition,start_states,final_states):
-        #now states are differeing see which belong to with set and make transitions
         self.allstates=states
         for allposs in states:
             for every in allposs:
@@ -134,11 +130,10 @@ class minimize_dfa:
                     if allposs not in self.finalstates:
                         self.finalstates.append(allposs)
                     
-        #make transition function now
         for st in states:
             for alph in letters:
-                dest=trans(st[0],alph,transition)  #first goes wherever all others go
-                destset=destination(dest,states) #find which set is destination in
+                dest=trans(st[0],alph,transition) 
+                destset=destination(dest,states) 
                 self.transition.append([st,alph,destset])
         self.prints()
 

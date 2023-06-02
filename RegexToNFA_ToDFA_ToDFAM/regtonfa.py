@@ -26,8 +26,8 @@ class Regex:
 
     def oper(self,ch):
         if ch==self.star or ch==self.union or ch==self.openb or ch==self.closeb or ch==self.concat:
-            return 0 #operator
-        return 1 #aplhabet  
+            return 0 
+        return 1 
 
     def prec(self,ops):
         if ops=="*":
@@ -61,7 +61,7 @@ class Regex:
 
             elif regex1[j]==self.closeb and j!=len(regex1)-1:
                 this="Sym"
-                prop_regex.append(regex1[j])   #here1
+                prop_regex.append(regex1[j])   
                 if regex1[j+1]!=self.star :
                     prop_regex.append(self.concat)
                   
@@ -69,7 +69,7 @@ class Regex:
             elif regex1[j]==self.star and j!=len(regex1)-1:
                 this="Sym"
                 prop_regex.append(regex1[j]) 
-                if regex1[j+1]!=self.closeb:   #here2
+                if regex1[j+1]!=self.closeb:   
                     prop_regex.append(self.concat)
                    
             else:
@@ -82,7 +82,7 @@ class Regex:
         for i in range(len(prop_regex)):
             
             op=self.oper(prop_regex[i])
-            if op==1: #alphabet
+            if op==1: 
                 out_queue.append(prop_regex[i])
             else:
                 if len(op_stack)==0:
@@ -91,13 +91,13 @@ class Regex:
                 else:
                     if prop_regex[i]!=")":
                         if prop_regex[i]=="(":
-                            op_stack.append(prop_regex[i]) #push
+                            op_stack.append(prop_regex[i]) 
                         else:    
                             while len(op_stack)>=0 and self.prec(self.top(op_stack))>=self.prec(prop_regex[i]):  
                                 #print("problem at ",i)
                                 out_queue.append(self.top(op_stack))
-                                op_stack=op_stack[:-1] #pop
-                            op_stack.append(prop_regex[i]) #push
+                                op_stack=op_stack[:-1] 
+                            op_stack.append(prop_regex[i]) 
                     else:
                         #print("end of iter ",i,"stack is ",op_stack)  
                         if prop_regex[i]==")":
@@ -105,7 +105,7 @@ class Regex:
                                 #print("end of iter ",i,"stack is ",op_stack)  
                                 out_queue.append(self.top(op_stack))
                                 op_stack=op_stack[:-1]
-                            op_stack=op_stack[:-1]     #discard brackets
+                            op_stack=op_stack[:-1]     
             #print("end of iter ",i,"stack is ",op_stack)            
         if len(op_stack)!=0:
             while len(op_stack)!=0:
@@ -205,9 +205,9 @@ def regex_to_nfa(regex):
             for sta in nfa2.final_states:
                 nfa.set_endstates(sta)
             for st in nfa2.start_states:
-                nfa.transition([c_state,"$",st]) #to all start states
+                nfa.transition([c_state,"$",st]) 
             for st in nfa1.start_states:
-                nfa.transition([c_state,"$",st]) #to all start states
+                nfa.transition([c_state,"$",st])
             for tr in nfa1.trans_f:    
                 nfa.transition(tr)
             for tr in nfa2.trans_f:    
@@ -315,7 +315,7 @@ if(len(sys.argv) == 3):
             "final_states":ends
         }
 
-    # Print the NFA results on the screen
+
     print("------------------------------\n")
     print("             NFA              \n")
     print("------------------------------\n")

@@ -32,15 +32,12 @@ def remove_unreachable_symbols(grammar):
     reachable_nt_set = set()
     new_prods = []
 
-    # collect all non-terminal symbols
     for prod in prods:
         nt = prod.split('->')[0].strip()
         nt_set.add(nt)
 
-    # start symbol is always reachable
     reachable_nt_set.add(prods[0].split('->')[0].strip())
 
-    # find all reachable symbols
     while True:
         old_size = len(reachable_nt_set)
         for prod in prods:
@@ -53,7 +50,6 @@ def remove_unreachable_symbols(grammar):
         if len(reachable_nt_set) == old_size:
             break
 
-    # create new productions for reachable symbols
     for prod in prods:
         nt = prod.split('->')[0].strip()
         if nt in reachable_nt_set:

@@ -16,16 +16,14 @@ else:
 
 
 
-
-# read regular expression from JSON file
 with open('regex.json', 'r') as f:
     regex_dict = json.load(f)
     regex = regex_dict['regex']
 
-# ask user to enter word to test
+
 word = input("Enter a word to test: ")
 
-# test word against regular expression
+
 if re.fullmatch(regex, word):
     print("Word is accepted by the regular expression!")
 else:
